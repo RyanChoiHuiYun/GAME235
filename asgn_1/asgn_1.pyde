@@ -6,7 +6,6 @@ def setup():
 
 def draw():
     fill(0, 200, random(200,255))
-    circle(mouseX, mouseY, 15) # (x,y,radius)
+    ellipse(mouseX, mouseY, 15, 30)
     fill(random(200,255), 200, 255)
-    circle(mouseY, mouseX, 15)
-    # line(random(200), random(400), random(200), random(400))
+    ellipse(mouseY, mouseX, 30, 15) # symmetric/mirror
