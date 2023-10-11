@@ -2,9 +2,11 @@
 # Ryan Cai
 GAME_WIDTH = 500
 GAME_HEIGHT = 500
+ACCEL_RATE = 1.15
+
 score = 0
 highScore = 0
-ACCEL_RATE = 1.15
+
 ballPosX = 0
 ballPosY = 0
 ballRadius = 40
