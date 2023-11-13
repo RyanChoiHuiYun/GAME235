@@ -1,0 +1,6 @@
+168.0,196.0,character.png
+308.0,336.0,character.png
+308.0,252.0,character.png
+252.0,308.0,character.png
+280.0,196.0,character.png
+420.0,280.0,character.png

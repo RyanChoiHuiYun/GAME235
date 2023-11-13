@@ -1,42 +1,58 @@
+# Ryan Cai
+# 11/13/2023
 # https://www.kenney.nl/assets/map-pack
 
 WINDOW_WIDTH = 680
 WINDOW_HEIGHT = 680
 GRID_SIZE = 24
 CELL_SIZE = WINDOW_WIDTH / GRID_SIZE
+SAVE_FILE = "tempsave.txt"
 
-assets = ["tile1.png", "tile2.png", "tile3.png", 
-          "tile4.png", "tile5.png", "tile6.png"]
+assets = ["character.png", "tile1.png", "tile2.png", 
+          "tile3.png", "tile4.png", "tile5.png"]
 currentTile = 0
 tilePos = []
 tileColor = []
-
+saveState = False
 
 def setup():
     size(WINDOW_WIDTH, WINDOW_HEIGHT)
     background(255)
-    #initGrid(GRID_SIZE, 3)
-
     
 def draw():
-    global currentTile, tilePos, tileColor
+    global currentTile, tilePos, tileColor, saveState
     background(255)
-    
+    textSize(15)
+    fill(0)
+    text("Press R to reset", 0, 15)
+    text("Press S to save", 0, 30)
+    text("Press L to load", 0, 45)
+    text("Use <- or -> to change textures", WINDOW_WIDTH - 200, 15)
     if keyPressed:
         if keyCode == RIGHT:
             currentTile += 1
         elif keyCode == LEFT:
             currentTile -= 1
-        
-    currentTile = currentTile % (len(assets) - 1)
+        elif key == "R" or key == "r":
+            tilePos = []
+            tileColor = []
+        elif key == "S" or key == "s":
+            saveState = True
+            if saveState == True:
+                saveTile()
+        elif key == "L" or key == "l":
+            loadTile(loadStrings(SAVE_FILE))
+            
+    currentTile = currentTile % len(assets)
     
     tile = loadImage(assets[currentTile])
     tint(255, 126)
-    image(tile, mouseX, mouseY, CELL_SIZE / 1.5, CELL_SIZE / 1.5)
-    
+    imageMode(CENTER)
+    image(tile, mouseX, mouseY, CELL_SIZE, CELL_SIZE)
     for i in range(len(tilePos)):
         tile = loadImage(tileColor[i])
         noTint()
+        imageMode(CORNER)
         image(tile, tilePos[i][0], tilePos[i][1], CELL_SIZE, CELL_SIZE)
         
     
@@ -44,3 +60,17 @@ def mousePressed():
     tempPos = PVector(mouseX - (mouseX % CELL_SIZE), mouseY - (mouseY % CELL_SIZE))
     tilePos.append(tempPos)
     tileColor.append(assets[currentTile])
+    
+def saveTile():
+    saveData = []
+    for i in range(len(tilePos)):
+        row = str(tilePos[i][0]) + "," + str(tilePos[i][1]) + "," + str(tileColor[i])
+        saveData.append(row)
+    saveStrings("data/" + SAVE_FILE, saveData)
+    saveState = False
+    
+def loadTile(data):
+    for row in data:
+        rowList = row.split(",")
+        tilePos.append(PVector(float(rowList[0]), float(rowList[1])))
+        tileColor.append(rowList[2])
