@@ -1,4 +1,4 @@
-# assets: https://www.kenney.nl/assets/map-pack
+# https://www.kenney.nl/assets/map-pack
 
 WINDOW_WIDTH = 680
 WINDOW_HEIGHT = 680
@@ -27,11 +27,12 @@ def draw():
             currentTile += 1
         elif keyCode == LEFT:
             currentTile -= 1
-        currentTile = currentTile % len(assets)
+        
+    currentTile = currentTile % (len(assets) - 1)
     
     tile = loadImage(assets[currentTile])
     tint(255, 126)
-    image(tile, mouseX, mouseY, CELL_SIZE / 2.5, CELL_SIZE / 2.5)
+    image(tile, mouseX, mouseY, CELL_SIZE / 1.5, CELL_SIZE / 1.5)
     
     for i in range(len(tilePos)):
         tile = loadImage(tileColor[i])
@@ -43,9 +44,3 @@ def mousePressed():
     tempPos = PVector(mouseX - (mouseX % CELL_SIZE), mouseY - (mouseY % CELL_SIZE))
     tilePos.append(tempPos)
     tileColor.append(assets[currentTile])
-
-def initGrid(gridSize, defaultTile):
-    for i in range(gridSize):
-        for j in range(gridSize):
-            tile = loadImage(assets[defaultTile])
-            image(tile, i*CELL_SIZE, j*CELL_SIZE, CELL_SIZE, CELL_SIZE)
