@@ -25,8 +25,9 @@ def draw():
     textSize(15)
     fill(0)
     text("Press R to reset", 0, 15)
-    text("Press S to save", 0, 30)
-    text("Press L to load", 0, 45)
+    text("Press F to save a screenshot", 0, 30)
+    text("Press S to save tile map", 0, 45)
+    text("Press L to load tile map", 0, 60)
     text("Use <- or -> to change textures", WINDOW_WIDTH - 200, 15)
     if keyPressed:
         if keyCode == RIGHT:
@@ -42,6 +43,8 @@ def draw():
                 saveTile()
         elif key == "L" or key == "l":
             loadTile(loadStrings(SAVE_FILE))
+        elif key == "F" or key == "f":
+            saveFrame("screenshot.png")
             
     currentTile = currentTile % len(assets)
     
