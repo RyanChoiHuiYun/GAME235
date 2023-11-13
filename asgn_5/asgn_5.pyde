@@ -28,7 +28,8 @@ def draw():
     text("Press F to save a screenshot", 0, 30)
     text("Press S to save tile map", 0, 45)
     text("Press L to load tile map", 0, 60)
-    text("Use <- or -> to change textures", WINDOW_WIDTH - 200, 15)
+    text("Click to place tiles", WINDOW_WIDTH - 200, 15)
+    text("Use <- or -> to change textures", WINDOW_WIDTH - 200, 30)
     if keyPressed:
         if keyCode == RIGHT:
             currentTile += 1
@@ -42,9 +43,11 @@ def draw():
             if saveState == True:
                 saveTile()
         elif key == "L" or key == "l":
+            tilePos = []
+            tileColor = []
             loadTile(loadStrings(SAVE_FILE))
         elif key == "F" or key == "f":
-            saveFrame("screenshot.png")
+            save("screenshot.png")
             
     currentTile = currentTile % len(assets)
     
