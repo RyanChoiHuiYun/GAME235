@@ -49,7 +49,7 @@ class Bullet(Object):
         super(Bullet, self).__init__(pos, v, id, hp)
     
     def update(self):
-        self.v.y = 5
+        self.v.y = -20
         self.pos.y += self.v.y
     
     def render(self):

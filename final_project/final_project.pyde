@@ -48,15 +48,24 @@ def main():
     player.update()
     mobDeletion()
     if mousePressed:
-        tempPos = PVector(player.pos.x, player.pos.y)
-        bullet = Bullet(tempPos, PLAYER_V, 0, 1)
-        bullets.append(bullet)
-    
+        if len(bullets) < 1:
+            tempPos = PVector(player.pos.x, player.pos.y)
+            bullet = Bullet(tempPos, PLAYER_V, 0, 2)
+            bullets.append(bullet)
+    for b in bullets:
+        b.render()
+        b.update()
+    bulletDeletion()
 
 def mobDeletion():
     for m in mobs:
         if isOffScreen(m.pos) is not 0:
             mobs.remove(m)
+
+def bulletDeletion():
+    for b in bullets:
+        if isOffScreen(b.pos) is not 0:
+            bullets.remove(b)
         
 def isOffScreen(vector):
     if vector.x < 0:
