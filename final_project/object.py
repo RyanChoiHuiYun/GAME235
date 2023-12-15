@@ -42,6 +42,12 @@ class Mob(Object):
     
     def render(self):
         super(Mob, self).render()
+        rectMode(CENTER)
+        noStroke()
+        if self.id == 3:
+            fill(255)
+        elif self.id == 4:
+            fill(128)
         rect(self.pos.x, self.pos.y, 25, 25)
 
 class Bullet(Object):
@@ -49,8 +55,11 @@ class Bullet(Object):
         super(Bullet, self).__init__(pos, v, id, hp)
     
     def update(self):
-        self.v.y = -20
-        self.pos.y += self.v.y
+        if self.id == 0:
+            self.v.y = -20
+            self.pos.y += self.v.y
+        elif self.id == 1:
+            pass
     
     def render(self):
         super(Bullet, self).render()
@@ -71,12 +80,18 @@ class Player(Object):
             elif key == "A" or key == "a":
                 if self.pos.x > 15:
                     self.v.x = -5
+                else:
+                    self.v.x = 0
             elif key == "S" or key == "s":
                 if self.pos.y < 785:
                     self.v.y = 5
+                else:
+                    self.v.y = 0
             elif key == "D" or key == "d":
                 if self.pos.x < 785:
                     self.v.x = 5
+                else:
+                    self.v.x = 0
             
             if not (key == "W" or key == "w") and not (key == "S" or key == "s"):
                 self.v.y = 0
@@ -88,5 +103,6 @@ class Player(Object):
                             
     def render(self):
         super(Player, self).render()
+        stroke()
+        fill(255, 255, 0)
         triangle(self.pos.x, self.pos.y, self.pos.x + 15, self.pos.y + 15, self.pos.x - 15, self.pos.y + 15)
-        text(self.hp, 25, 25)
